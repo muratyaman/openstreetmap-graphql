@@ -1,0 +1,212 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.55.1011 6c2efc30",
+  "osm3s": {
+    "timestamp_osm_base": "2020-02-29T11:17:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "node",
+      "id": 1806109409,
+      "lat": 24.5330583,
+      "lon": 54.3999887
+    },
+    {
+      "type": "way",
+      "id": 4917972,
+      "bounds": {
+        "minlat": 24.5205857,
+        "minlon": 54.3931572,
+        "maxlat": 24.5425261,
+        "maxlon": 54.4134563
+      },
+      "geometry": [
+        null,
+        {
+          "lat": 24.5403531,
+          "lon": 54.4134563
+        },
+        {
+          "lat": 24.5397566,
+          "lon": 54.4119054
+        }
+      ],
+      "tags": {
+        "natural": "coastline"
+      }
+    },
+    {
+      "type": "way",
+      "id": 403276371,
+      "bounds": {
+        "minlat": 24.5329555,
+        "minlon": 54.3975355,
+        "maxlat": 24.5345960,
+        "maxlon": 54.3993500
+      },
+      "geometry": [
+        {
+          "lat": 24.5329555,
+          "lon": 54.3985941
+        },
+        {
+          "lat": 24.5329592,
+          "lon": 54.3982781
+        }
+      ],
+      "tags": {
+        "access": "yes",
+        "addr:city": "Abu Dhabi",
+        "architect": "Jean Nouvel",
+        "building:min_level": "3",
+        "building:part": "yes",
+        "building:roof:height": "20",
+        "building:roof:material": "metal",
+        "building:roof:shape": "dome",
+        "levels": "6",
+        "name": "Louvre Abu Dhabi",
+        "name:en": "Louvre Abu Dhabi",
+        "operator": "Abu Dhabi Tourism Development & Investment Company",
+        "start_date": "2017-11-08",
+        "tourism": "museum",
+        "website": "http://louvreabudhabi.ae/",
+        "wikidata": "Q3176133",
+        "wikipedia": "en:Louvre Abu Dhabi"
+      }
+    },
+    {
+      "type": "way",
+      "id": 498046180,
+      "bounds": {
+        "minlat": 24.5323123,
+        "minlon": 54.3972136,
+        "maxlat": 24.5350720,
+        "maxlon": 54.4001538
+      },
+      "geometry": [
+        {
+          "lat": 24.5346555,
+          "lon": 54.3981958
+        }
+      ],
+      "tags": {
+        "building": "yes",
+        "building:levels": "3"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 9326283,
+      "bounds": {
+        "minlat": 24.5159192,
+        "minlon": 54.3896384,
+        "maxlat": 24.5425261,
+        "maxlon": 54.4134563
+      },
+      "members": [
+        {
+          "type": "way",
+          "ref": 762934582,
+          "role": "inner",
+          "geometry": []
+        },
+        {
+          "type": "way",
+          "ref": 694568342,
+          "role": "outer",
+          "geometry": []
+        }
+      ],
+      "tags": {
+        "alt_name:ar": "الخليج العربي;خليج البصرة;خليج العرب;خليج فارس",
+        "alt_name:de": "Arabisch-Persischer Golf",
+        "alt_name:pl": "Zatoka Irańska",
+        "alt_name:vi": "Vịnh Péc-xích",
+        "area": "yes",
+        "gns:dsg": "GULF",
+        "gns:uni": "-2149940",
+        "name": "خلیج فارس",
+        "name:ang": "Persian Gulf",
+        "name:ar": "الخليج العربي",
+        "name:arz": "الخليج الفارسى",
+        "name:azb": "فارس کؤرفزی",
+        "name:ckb": "کەنداوی فارس",
+        "name:cs": "Perský záliv",
+        "name:de": "Persischer Golf",
+        "name:el": "Περσικός Κόλπος",
+        "name:en": "Persian Gulf",
+        "name:eo": "Persa Golfo",
+        "name:es": "Golfo Pérsico",
+        "name:fa": "خلیج فارس",
+        "name:fi": "Persianlahti",
+        "name:fr": "Golfe Persique",
+        "name:glk": "خلیج فارس",
+        "name:he": "המפרץ הפרסי",
+        "name:hi": "फ़ारस की खाड़ी",
+        "name:hr": "Perzijski zaljev",
+        "name:hu": "Perzsa-öböl",
+        "name:ia": "Golfo Persic",
+        "name:io": "Persiana gulfo",
+        "name:it": "Golfo Persico",
+        "name:ja": "ペルシア湾",
+        "name:ko": "페르시아 만",
+        "name:lt": "Persijos įlanka",
+        "name:ms": "Teluk Parsi",
+        "name:mzn": "خلیج فارس",
+        "name:nl": "Perzische Golf",
+        "name:no": "Persiabukten",
+        "name:pl": "Zatoka Perska",
+        "name:pnb": "خلیج فارس",
+        "name:ps": "د فارس خليج",
+        "name:pt": "Golfo Pérsico",
+        "name:ru": "Персидский залив",
+        "name:sk": "Perzský záliv",
+        "name:sl": "Perzijski zaliv",
+        "name:uk": "Перська затока",
+        "name:ur": "خلیج فارس",
+        "name:vi": "Vịnh Ba Tư",
+        "name:zh": "波斯湾",
+        "natural": "bay",
+        "sqkm": "235000",
+        "type": "multipolygon",
+        "water": "sea",
+        "wikidata": "Q34675",
+        "wikipedia": "fa:خلیج فارس",
+        "wikipedia:en": "Persian Gulf"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 9518900,
+      "bounds": {
+        "minlat": 24.5205857,
+        "minlon": 54.3931572,
+        "maxlat": 24.5425261,
+        "maxlon": 54.4134563
+      },
+      "members": [
+        {
+          "type": "way",
+          "ref": 4917972,
+          "role": "outer",
+          "geometry": []
+        },
+        {
+          "type": "way",
+          "ref": 686020714,
+          "role": "outer",
+          "geometry": []
+        }
+      ],
+      "tags": {
+        "name": "Saadiyat Island",
+        "name:ar": "جزيرة السعديات",
+        "name:en": "Saadiyat Island",
+        "type": "multipolygon",
+        "website": "http://www.saadiyat.ae/en/",
+        "wikipedia": "en:Saadiyat Island"
+      }
+    }
+  ]
+}
