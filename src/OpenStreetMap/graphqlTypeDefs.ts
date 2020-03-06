@@ -5,10 +5,15 @@ type Tags {
   website: String
   wikipedia: String
   tourism: String
+  historic: String
 }
 
 type Node {
   type: String!
+  name: String
+  website: String
+  wiki: String
+  cat: String
   id: ID!
   lat: Float
   lon: Float
@@ -17,6 +22,10 @@ type Node {
 
 type Way {
   type: String!
+  name: String
+  website: String
+  wiki: String
+  cat: String
   id: ID!
   lat: Float
   lon: Float
@@ -25,6 +34,10 @@ type Way {
 
 type Relation {
   type: String!
+  name: String
+  website: String
+  wiki: String
+  cat: String
   id: ID!
   lat: Float
   lon: Float

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import querystring from 'querystring';
+import ICache from '../ICache';
 
 // @see https://wiki.openstreetmap.org/wiki/Overpass_API
 
@@ -29,6 +30,9 @@ export type Bounds = IBounds;
 //  id: number;
 //}
 
+const NameEn = 'name:en';
+const WikipediaEn = 'wikipedia:en';
+
 interface ITags {
 
   // "access": "yes",
@@ -45,12 +49,13 @@ interface ITags {
   cuisine?: string; // "mexican",
 
   name?: string; // "Louvre Abu Dhabi", // sometimes Arabic
-  ['name:en']?: string; // "Louvre Abu Dhabi",
+  [NameEn]?: string; // "Louvre Abu Dhabi",
   operator?: string;// "Abu Dhabi Tourism Development & Investment Company",
   start_date?: string; // "2017-11-08",
 
   // @see https://wiki.openstreetmap.org/wiki/Key:tourism
   tourism?: string; // "museum", "attraction"
+  historic?: string; // "castle"
 
   // @see https://wiki.openstreetmap.org/wiki/Key:attraction
   attraction?: string; // "roller_coaster", "water_slide"
@@ -58,7 +63,7 @@ interface ITags {
   website?: string; // "http://louvreabudhabi.ae/",
   wikidata?: string; // "Q3176133",
   wikipedia?: string; // "en:Louvre Abu Dhabi" // "fa:خلیج فارس"
-  ['wikipedia:en']?: string; // "Persian Gulf"
+  [WikipediaEn]?: string; // "Persian Gulf"
 
   type?: string; // "multipolygon",
 
@@ -79,6 +84,7 @@ export type Member = IMember;
 interface INode extends Position {
   type: EnumType.node;
   id: number;
+  name?: string;
   tags?: Tags;
   bounds?: Bounds; // this prop does not exist for node
   geometry?: Array<Position | null>; // this prop does not exist for node
@@ -90,6 +96,7 @@ export type Node = INode;
 interface IWay {
   type: EnumType.way;
   id: number;
+  name?: string;
   tags?: Tags;
   bounds?: Bounds;
   geometry?: Array<Position | null>;
@@ -101,6 +108,7 @@ export type Way = IWay;
 interface IRelation {
   type: EnumType.relation;
   id: number;
+  name?: string;
   bounds?: Bounds;
   members?: Array<Member | null>;
   tags?: Tags;
@@ -129,9 +137,11 @@ interface IHttpClientConfig {
 export default class OsmHttpClient {
 
   config: IHttpClientConfig;
+  cache: ICache;
 
-  constructor(config: IHttpClientConfig) {
+  constructor(config: IHttpClientConfig, cache: ICache) {
     this.config = config;
+    this.cache = cache;
   }
 
   async searchElements(lat: number, lon: number): Promise<SearchElementsResponse> {
@@ -153,7 +163,7 @@ export default class OsmHttpClient {
       const boxlatmax = lat - difflatmax, boxlonmax = lon - difflonmax;
 
       const bounds = `${boxlatmin},${boxlonmin},${boxlatmax},${boxlonmax}`;
-      const around = 22.5;
+      const around = 500;//22.5; // metres // radius?
       const dataTemp = [
         `[timeout:10][out:json];`,
         `(`,
@@ -172,9 +182,21 @@ export default class OsmHttpClient {
           'content-type': 'application/x-www-form-urlencoded',
         },
       };
-      const response = await axios.post(this.config.interpreter, requestBody, options);
-      const osmJson = response.data as SearchElementsResponse;
-      osmJson.elements = osmJson.elements.filter(el => el !== null);
+
+      let osmJson: SearchElementsResponse;
+
+      const cacheKey = 'url:'+this.config.interpreter + ';body:' + requestBody;
+      // first, try to get it from cache
+      const cachedContent = await this.cache.get(cacheKey);
+      if (cachedContent) {
+        osmJson = cachedContent as SearchElementsResponse;
+      } else {
+        const response = await axios.post(this.config.interpreter, requestBody, options);
+        this.cache.set(cacheKey, response.data).then(() => {}).catch(() => {});// fire + forget
+        osmJson = response.data as SearchElementsResponse;
+      }
+
+      osmJson.elements = osmJson.elements ? osmJson.elements.filter(el => el !== null): [];
       osmJson.elements = osmJson.elements.map(el => {
         if (el.hasOwnProperty('geometry')) {
           el.geometry = (el as Way).geometry.filter(g => g !== null);
@@ -193,11 +215,11 @@ export default class OsmHttpClient {
     }
   }
 
-  transformElements(elements: Element[]) {
-    return elements.filter(el => {
-      return el && el.tags && el.tags.tourism && el.tags.tourism === 'museum';
-    });
-  }
+  // transformElements(elements: Element[]) {
+  //   return elements.filter(el => {
+  //     return el && el.tags && el.tags.tourism && el.tags.tourism === 'museum';
+  //   });
+  // }
 
   async getNode(id: number): Promise<INode> {
     try {
