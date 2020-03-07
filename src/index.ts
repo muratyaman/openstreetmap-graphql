@@ -17,7 +17,8 @@ const tourismValues = ['museum', 'attraction'];
 const historicValues = ['castle'];
 
 const searchCore = async (obj, args, context, info): Promise<Element[]> => {
-  console.info('searchCore obj', obj);
+  console.info(new Date(), 'searchCore start');
+  //console.info('searchCore obj', obj);
   // console.info('search args', args);
   // console.info('search context', context);
   // console.info('search info', info);
@@ -57,7 +58,7 @@ const searchCore = async (obj, args, context, info): Promise<Element[]> => {
 
     return Object.assign({}, el, position, { name, cat, wiki, website });
   });
-  console.info('searchCore results', filtered);
+  console.info(new Date(), 'searchCore end');
   return filtered;
 };
 
@@ -66,31 +67,29 @@ const root = {
   hello: () => 'Hello world!',
 
   async search(obj, args, context, info): Promise<Element[]> {
-    console.info(new Date(), 'search start');
     const elements = await searchCore(obj, args, context, info);
-    //console.info('search', elements);
-    console.info(new Date(), 'search end');
+    //console.info('searchCore', elements);
     return elements;
   },
 
   async searchNodes(obj, args, context, info): Promise<Node[]> {
     const elements = await searchCore(obj, args, context, info);
     const filtered = elements.filter(el => el.type === 'node').map(el => el as Node);
-    console.info('searchNodes', filtered);
+    //console.info('searchNodes', filtered);
     return filtered;
   },
 
   async searchWays(obj, args, context, info): Promise<Way[]> {
     const elements = await searchCore(obj, args, context, info);
     const filtered = elements.filter(el => el.type === 'way').map(el => el as Way);
-    console.info('searchWays', filtered);
+    //console.info('searchWays', filtered);
     return filtered;
   },
 
   async searchRelations(obj, args, context, info): Promise<Relation[]> {
     const elements = await searchCore(obj, args, context, info);
     const filtered = elements.filter(el => el.type === 'relation').map(el => el as Relation);
-    console.info('searchRelations', filtered);
+    //console.info('searchRelations', filtered);
     return filtered;
   },
 };

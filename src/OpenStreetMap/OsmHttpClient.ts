@@ -147,6 +147,18 @@ export default class OsmHttpClient {
   async searchElements(lat: number, lon: number): Promise<SearchElementsResponse> {
     try {
       /*
+      [timeout:10]
+      [out:json];
+      (
+      node(around:75.9375,25.2651,55.2977);
+      way(around:75.9375,25.2651,55.2977);
+      );
+      out tags geom(25.2466,55.2814,25.3011,55.3241);
+      relation(around:75.9375,25.2651,55.2977);
+      out geom(25.2466,55.2814,25.3011,55.3241);
+      */
+
+      /*
       [timeout:10][out:json];
       (
       node(around:22.5,25.35782,55.38433);
